@@ -1,0 +1,28 @@
+# Gradle files
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration file
+/local.properties
+
+# User-specific configurations
+.idea/
+
+# Android Studio generated files
+captures/
+.externalNativeBuild/
+
+# Built application files
+*.apk
+*.ap_
+*.dex
+
+# Java binaries
+*.class
+
+# Proguard folder generated
+proguard/
+
+# Google Services JSON file
+google-services.json
