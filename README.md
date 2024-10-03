@@ -1,5 +1,5 @@
-## Mobile Computing Systems Programming (COMP90018)
-This repository is created for archiving **Mobile Computing Systems Programming** *Tutorial source code (2024 version)* from the University of Melbourne.
+## Mobile Computing Sensor
+This repository is created for archiving **Mobile Computing Systems Programming** *Assignment 2
 
 ### License
 See the [LICENSE file](./LICENSE) for license rights and limitations (MIT).
