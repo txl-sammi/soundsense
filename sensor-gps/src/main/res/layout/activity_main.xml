@@ -62,7 +62,7 @@
     <!-- city -->
 
     <TextView
-        android:id="@+id/countryTextView"
+        android:id="@+id/country_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Country: "
@@ -75,14 +75,39 @@
         app:layout_constraintVertical_bias="0.548" />
 
     <TextView
-        android:id="@+id/cityTextView"
+        android:id="@+id/country_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.548" />
+
+    <!-- City Label and Input -->
+    <TextView
+        android:id="@+id/city_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="City: "
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.654" />
+
+    <TextView
+        android:id="@+id/city_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.654" />

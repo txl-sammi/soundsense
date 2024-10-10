@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.Manifest;
+import android.location.Address;
+import android.location.Geocoder;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -28,14 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
     private ActivityMainBinding binding;
-    // Google's API for location services
+
     private FusedLocationProviderClient fusedLocationClient;
-    // Configuration of all settings of FusedLocationProviderClient
     LocationRequest locationRequest;
     LocationCallback locationCallback;
 
-    private TextView countryTextView;
-    private TextView cityTextView;
+    private TextView countryInput;
+    private TextView cityInput;
 
     private final int Request_Code_Location = 22;
 
@@ -52,8 +57,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        countryTextView = findViewById(R.id.countryTextView);
-        cityTextView = findViewById(R.id.cityTextView);
+        // Initialize UI elements
+        countryInput = findViewById(R.id.country_input);
+        cityInput = findViewById(R.id.city_input);
+        latttv = binding.latitudeInput;
+        longtv = binding.longitudeInput;
+        button = binding.button;
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -68,10 +77,9 @@ public class MainActivity extends AppCompatActivity {
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(5000);
 
-        locationCallback = new LocationCallback()
-        {
+        locationCallback = new LocationCallback() {
             @Override
-            public void onLocationResult (@NonNull LocationResult locationResult){
+            public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 if (locationResult != null) {
                     Log.d("LocationTest", "Location updates");
@@ -82,26 +90,18 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        latttv = binding.latitudeInput;
-        longtv = binding.longitudeInput;
-        button = binding.button;
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 updateLocation();
             }
         });
     }
 
-    private void updateLocation()
-    {
-        // if user grants permission
+    private void updateLocation() {
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
 
-            // get the last location
             fusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
@@ -114,24 +114,39 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
-        }
-        else {
-            // if the user hasn't granted permission, ask for it explicitly
+        } else {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_Code_Location);
         }
     }
 
-    private void updateUI(Location location)
-    {
+    private void updateUI(Location location) {
         latttv.setText(String.valueOf(location.getLatitude()));
         longtv.setText(String.valueOf(location.getLongitude()));
+
+        // Geocoder를 사용하여 나라와 도시를 얻어옵니다.
+        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+        try {
+            // 위도와 경도로부터 주소 리스트를 얻습니다.
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                // 나라와 도시를 각각의 입력 뷰에 설정
+                countryInput.setText(address.getCountryName());
+                cityInput.setText(address.getLocality());
+            } else {
+                Log.d("LocationTest", "No address found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("LocationTest", "Geocoder failed");
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == Request_Code_Location){
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == Request_Code_Location) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 updateLocation();
             }
         }
