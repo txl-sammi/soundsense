@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@color/black">
 
-    <!-- Logo -->
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="@string/logo"
-        android:src="@drawable/soundsense_logo" />
+    <!-- Back button -->
 
-    <!-- Title -->
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="@string/app_name"
@@ -28,20 +22,47 @@
         android:textSize="36sp"
         android:textStyle="bold" />
 
-    <!-- Welcome Text -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back_arrow"
+        android:contentDescription="@string/back_button_description"
+        android:layout_gravity="start"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Title -->
+
+    <!-- Sign Up Title -->
+
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/signUpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
-        android:text="@string/welcome"
+        android:text="@string/signup"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <!-- Email Field -->
+    <EditText
+        android:id="@+id/emailField"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:autofillHints="email"
+        android:background="@drawable/input_background"
+        android:hint="@string/prompt_email"
+        android:inputType="text|textEmailAddress|textNoSuggestions"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray" />
 
     <!-- Username Field -->
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/usernameField"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -55,7 +76,7 @@
 
     <!-- Password Field -->
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/passwordField"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -67,34 +88,16 @@
         android:textColor="@color/white"
         android:textColorHint="@color/gray" />
 
-    <!-- Login Button -->
+    <!-- Create Account Button -->
     <Button
-        android:id="@+id/login"
+        android:id="@+id/createAccountButton"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:backgroundTint="@color/blue"
         android:padding="12dp"
-        android:text="@string/login"
+        android:text="@string/action_create_account"
         android:textColor="@color/gray"
         android:textStyle="bold" />
-
-    <!-- Divider Line -->
-    <View
-        android:layout_width="100dp"
-        android:layout_height="1dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/gray" />
-
-    <!-- Create Account Link -->
-    <TextView
-        android:id="@+id/createAccountLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="16dp"
-        android:text="@string/action_create_account"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
 
 </LinearLayout>
