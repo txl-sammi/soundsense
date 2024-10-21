@@ -85,7 +85,7 @@
         <!-- 1st Playlist Button -->
 
         <ImageView
-            android:id="@+id/playlist_4"
+            android:id="@+id/playlist_1"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="4dp"
