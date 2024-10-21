@@ -23,8 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.soundsenseapp.R;
-import com.example.soundsenseapp.ui.login.LoginViewModel;
-import com.example.soundsenseapp.ui.login.LoginViewModelFactory;
 import com.example.soundsenseapp.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
