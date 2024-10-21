@@ -29,7 +29,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="Profile picture"
-        android:background="@drawable/circular_background"
+        android:background="@drawable/soundsense_logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@drawable/pfp" />
@@ -43,7 +43,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="108dp"
-        android:background="@drawable/circular_background"
+        android:background="@drawable/soundsense_logo"
         android:contentDescription="Playlist mood image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
