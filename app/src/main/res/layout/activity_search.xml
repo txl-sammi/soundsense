@@ -8,79 +8,90 @@
 
     <!-- App Name and Profile Picture (Header) -->
 
+    <!-- Large Mood Image -->
+
+    <!-- Mood Name -->
+
+    <!-- Description -->
+
+    <!-- Playlist Grid (3 Images/Buttons) -->
+
+    <!-- Bottom Navigation Bar -->
+
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="40dp"
         android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Large Mood Image -->
-
-    <!-- Mood Name -->
-
     <ImageView
-        android:id="@+id/mood_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="100dp"
+        android:id="@+id/mood_image4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="208dp"
         android:background="@drawable/playlist"
         android:contentDescription="@string/playlist_mood_img"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name" />
 
-    <!-- Description -->
-    <TextView
-        android:id="@+id/playlist_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/name_of_mood"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/mood_image3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="208dp"
+        android:background="@drawable/playlist"
+        android:contentDescription="@string/playlist_mood_img"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mood_image" />
+        app:layout_constraintTop_toBottomOf="@id/app_name" />
 
-    <TextView
-        android:id="@+id/mood_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/mood_desc"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
+    <ImageView
+        android:id="@+id/mood_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/playlist"
+        android:contentDescription="@string/playlist_mood_img"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playlist_title" />
+        app:layout_constraintTop_toBottomOf="@id/app_name" />
 
-    <!-- Playlist Grid (3 Images/Buttons) -->
+    <ImageView
+        android:id="@+id/mood_image2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/playlist"
+        android:contentDescription="@string/playlist_mood_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.834"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_name" />
 
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/playlist_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal|end"
+        android:layout_marginBottom="92dp"
+        android:gravity="start"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mood_description"
-        app:layout_constraintVertical_bias="0.076">
+        app:layout_constraintTop_toBottomOf="@+id/Recents">
 
         <!-- 1st Playlist Button -->
 
@@ -92,6 +103,7 @@
             android:background="#E1BEE7"
             android:contentDescription="@string/playlist" />
 
+        <!-- 2nd Playlist Button -->
         <ImageView
             android:id="@+id/playlist_1"
             android:layout_width="80dp"
@@ -100,7 +112,6 @@
             android:background="#00BCD4"
             android:contentDescription="@string/playlist" />
 
-        <!-- 2nd Playlist Button -->
         <ImageView
             android:id="@+id/playlist_2"
             android:layout_width="80dp"
@@ -135,9 +146,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/home"
             android:padding="16dp"
-            tools:srcCompat="@drawable/home_active_nav" 
-            android:clickable="true"
-            android:focusable="true"/>
+            tools:srcCompat="@drawable/home_nav" />
 
         <ImageView
             android:id="@+id/nav_search"
@@ -146,9 +155,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/search"
             android:padding="16dp"
-            tools:srcCompat="@drawable/search_nav" 
-            android:clickable="true"
-            android:focusable="true"/>
+            tools:srcCompat="@drawable/search_active_nav" />
 
         <ImageView
             android:id="@+id/nav_music"
@@ -157,9 +164,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/music"
             android:padding="16dp"
-            tools:srcCompat="@drawable/music_nav" 
-            android:clickable="true"
-            android:focusable="true"/>
+            tools:srcCompat="@drawable/music_nav" />
 
         <ImageView
             android:id="@+id/nav_profile"
@@ -168,10 +173,19 @@
             android:layout_weight="1"
             android:contentDescription="@string/profile"
             android:padding="9dp"
-            tools:srcCompat="@drawable/profile_pic" 
-            android:clickable="true"
-            android:focusable="true"/>
-            
+            tools:srcCompat="@drawable/profile_pic" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/Recents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Recents"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/mood_image3"
+        tools:layout_editor_absoluteX="29dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

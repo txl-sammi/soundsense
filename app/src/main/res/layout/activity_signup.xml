@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="#212121">
 
     <!-- Second LinearLayout (Back Button and App Title) positioned at top-left -->
     <LinearLayout
