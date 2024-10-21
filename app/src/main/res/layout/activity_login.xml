@@ -28,7 +28,15 @@
         android:textSize="36sp"
         android:textStyle="bold" />
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white" />
+
     <!-- Welcome Text -->
+
+    <!-- Username Field -->
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
@@ -39,7 +47,6 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-    <!-- Username Field -->
     <EditText
         android:id="@+id/username"
         android:layout_width="320dp"
@@ -81,10 +88,10 @@
 
     <!-- Divider Line -->
     <View
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/gray" />
+        android:background="@color/white" />
 
     <!-- Create Account Link -->
     <TextView

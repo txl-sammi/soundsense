@@ -56,6 +56,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="back_button_description">Back</string>
+    <string name="prompt_confirm_password">Confirm password</string>
 
     <string name="logo">"SoundSense logo</string>
 </resources>
