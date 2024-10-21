@@ -46,6 +46,7 @@
     </string>
     <!-- Strings related to login -->
     <string name="title_activity_login">LoginActivity</string>
+    <string name="welcome_login">Welcome back to the SoundSense</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
