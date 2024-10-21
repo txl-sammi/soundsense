@@ -104,13 +104,6 @@
             android:contentDescription="@string/playlist" />
 
         <!-- 2nd Playlist Button -->
-        <ImageView
-            android:id="@+id/playlist_1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="4dp"
-            android:background="#00BCD4"
-            android:contentDescription="@string/playlist" />
 
         <ImageView
             android:id="@+id/playlist_2"
@@ -127,6 +120,14 @@
             android:layout_height="80dp"
             android:layout_margin="4dp"
             android:background="#FFF59D"
+            android:contentDescription="@string/playlist" />
+
+        <ImageView
+            android:id="@+id/playlist_4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="4dp"
+            android:background="#00BCD4"
             android:contentDescription="@string/playlist" />
 
     </LinearLayout>
@@ -180,12 +181,13 @@
         android:id="@+id/Recents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="36dp"
         android:text="Recents"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/mood_image3"
-        tools:layout_editor_absoluteX="29dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mood_image3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

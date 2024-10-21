@@ -40,7 +40,7 @@
 
     <!-- Description -->
     <TextView
-        android:id="@+id/playlist_title"
+        android:id="@+id/mood_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -53,21 +53,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mood_image" />
 
+    <!-- Playlist Grid (3 Images/Buttons) -->
+
+    <!-- Bottom Navigation Bar -->
+
     <TextView
         android:id="@+id/mood_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="504dp"
         android:text="@string/mood_desc"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playlist_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Playlist Grid (3 Images/Buttons) -->
-
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/playlist_options"
         android:layout_width="wrap_content"
@@ -92,15 +94,8 @@
             android:background="#E1BEE7"
             android:contentDescription="@string/playlist" />
 
-        <ImageView
-            android:id="@+id/playlist_1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="4dp"
-            android:background="#00BCD4"
-            android:contentDescription="@string/playlist" />
-
         <!-- 2nd Playlist Button -->
+
         <ImageView
             android:id="@+id/playlist_2"
             android:layout_width="80dp"
@@ -116,6 +111,14 @@
             android:layout_height="80dp"
             android:layout_margin="4dp"
             android:background="#FFF59D"
+            android:contentDescription="@string/playlist" />
+
+        <ImageView
+            android:id="@+id/playlist_4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="4dp"
+            android:background="#00BCD4"
             android:contentDescription="@string/playlist" />
 
     </LinearLayout>
