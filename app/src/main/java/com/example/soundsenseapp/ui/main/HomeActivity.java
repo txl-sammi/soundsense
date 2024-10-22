@@ -18,7 +18,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Set the mood name and description dynamically
-        binding.moodName.setText("Relaxed Mood");
+        // binding.moodName.setText("Relaxed Mood");
         binding.moodDescription.setText("Recommended playlists for your relaxed mood");
 
         // Set OnClickListeners for each playlist option
