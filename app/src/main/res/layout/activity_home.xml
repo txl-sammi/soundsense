@@ -1,21 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:backgroundTint="@color/black"
+    android:background="#FFFFFF">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Home Activity!"
-        android:textSize="24sp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current temperature: "
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/temperatureData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sensor Data: Waiting for data..."
+            android:textColor="@color/black"
+            android:background="@color/blue"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current move velocity: "
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/volecityData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sensor Data: Waiting for data..."
+            android:textColor="@color/black"
+            android:background="@color/blue"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/black"
         android:text="Logout"
-        android:layout_marginTop="20dp"/>
-</LinearLayout>
-
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"/>
+</RelativeLayout>
