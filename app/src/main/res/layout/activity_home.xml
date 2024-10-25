@@ -1,59 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/black"
-    android:background="#FFFFFF">
+    android:background="#212121">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current temperature: "
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:layout_centerInParent="true"/>
-        <TextView
-            android:id="@+id/temperatureData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sensor Data: Waiting for data..."
-            android:textColor="@color/black"
-            android:background="@color/blue"
-            android:textSize="20sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current move velocity: "
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:layout_marginTop="20dp"
-            android:layout_centerInParent="true"/>
-        <TextView
-            android:id="@+id/volecityData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sensor Data: Waiting for data..."
-            android:textColor="@color/black"
-            android:background="@color/blue"
-            android:textSize="20sp" />
-    </LinearLayout>
-
+    <!-- Logout 버튼 -->
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
-        android:textColor="@color/black"
         android:text="Logout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"/>
-</RelativeLayout>
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="5dp" />
+
+    <!-- 앱 이름 -->
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="SoundSense"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Country 버튼 -->
+
+    <!-- Temperature 버튼 -->
+    <android.widget.Button
+        android:id="@+id/country_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_button"
+        android:text="Country"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_name" />
+
+    <android.widget.Button
+        android:id="@+id/speed_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button"
+        android:text="Speed"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/country_button" />
+
+    <android.widget.Button
+        android:id="@+id/temperature_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_button"
+        android:text="Temperature"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_name" />
+
+
+    <ImageView
+        android:id="@+id/playlist_1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="#E1BEE7"
+        android:contentDescription="Playlist 1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Recents" />
+
+    <ImageView
+        android:id="@+id/playlist_2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#E1BEE7"
+        android:contentDescription="Playlist 2"
+        app:layout_constraintStart_toEndOf="@id/playlist_1"
+        app:layout_constraintTop_toBottomOf="@id/Recents" />
+
+    <ImageView
+        android:id="@+id/playlist_4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#00BCD4"
+        android:contentDescription="Playlist 4"
+        app:layout_constraintStart_toEndOf="@id/playlist_3"
+        app:layout_constraintTop_toBottomOf="@id/Recents" />
+
+    <ImageView
+        android:id="@+id/playlist_3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFF59D"
+        android:contentDescription="Playlist 3"
+        app:layout_constraintStart_toEndOf="@id/playlist_2"
+        app:layout_constraintTop_toBottomOf="@id/Recents" />
+
+    <TextView
+        android:id="@+id/Recents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Recents"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/speed_button" />
+
+    <LinearLayout
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/nav_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="Home"
+            android:padding="16dp"
+            tools:srcCompat="@drawable/home_nav" />
+
+        <ImageView
+            android:id="@+id/nav_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="Search"
+            android:padding="16dp"
+            tools:srcCompat="@drawable/search_active_nav" />
+
+        <ImageView
+            android:id="@+id/nav_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="Music"
+            android:padding="16dp"
+            tools:srcCompat="@drawable/music_nav" />
+
+        <ImageView
+            android:id="@+id/nav_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="Profile"
+            android:padding="9dp"
+            tools:srcCompat="@drawable/profile_pic" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
