@@ -3,11 +3,11 @@ package com.example.soundsenseapp.ui.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.soundsenseapp.HomeActivity;
@@ -21,10 +21,10 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 public class SignupActivity extends AppCompatActivity {
 
     private EditText emailEditText;
-    private EditText usernameEditText;
     private EditText passwordEditText;
+    private EditText confirmPasswordEditText;
     private Button signupButton;
-    private ImageButton backButton;
+    private Button backButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,8 +33,8 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         emailEditText = findViewById(R.id.email);
-        usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
+        confirmPasswordEditText = findViewById(R.id.confirm_password);
         signupButton = findViewById(R.id.signupButton);
         backButton = findViewById(R.id.backButton);
 
@@ -52,9 +52,14 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
+                String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
                     Toast.makeText(SignupActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (!password.equals(confirmPassword)) {
+                    Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
                     createAccount(email, password);
                 }
