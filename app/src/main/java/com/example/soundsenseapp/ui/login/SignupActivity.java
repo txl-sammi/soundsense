@@ -1,24 +1,22 @@
 package com.example.soundsenseapp.ui.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.soundsenseapp.MainActivity;
+import com.example.soundsenseapp.HomeActivity;
 import com.example.soundsenseapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuthException;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -27,32 +25,28 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button signupButton;
     private ImageButton backButton;
-    private FirebaseAuth mAuth; // Firebase Authentication instance
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        // Initialize UI elements
         emailEditText = findViewById(R.id.email);
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
         signupButton = findViewById(R.id.signupButton);
         backButton = findViewById(R.id.backButton);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Back button functionality
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Simply close the signup activity and go back
+                finish();
             }
         });
 
-        // Sign up button listener
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,21 +62,22 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    // Method to create a new user in Firebase
     private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(SignupActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
 
-                        // Navigate to the main page or login page after successful sign-up
-                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                        SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.apply();
+
+                        Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                         startActivity(intent);
-                        finish(); // Close the signup activity
+                        finish();
                     } else {
-                        // If sign in fails, display a message to the user
                         try {
                             throw task.getException();
                         } catch (FirebaseAuthWeakPasswordException e) {
