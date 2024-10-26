@@ -35,13 +35,11 @@ public class GPSLocation {
         this.listener = listener;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
 
-        // 위치 요청 설정
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000); // 10초마다 위치 업데이트
-        locationRequest.setFastestInterval(5000); // 최소 5초 간격
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        // 위치 변경 콜백
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -54,7 +52,6 @@ public class GPSLocation {
         };
     }
 
-    // 위치 요청 시작
     public void startListening() {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
@@ -63,12 +60,10 @@ public class GPSLocation {
         }
     }
 
-    // 위치 요청 중단
     public void stopListening() {
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
-    // 위치 업데이트 시 국가 정보를 얻는 메서드
     private void updateCountryName(android.location.Location location) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
@@ -85,7 +80,6 @@ public class GPSLocation {
         }
     }
 
-    // LocationListener 인터페이스 정의
     public interface LocationListener {
         void onLocationChanged(String countryName);
     }

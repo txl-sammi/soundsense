@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#212121">
 
-    <!-- Logout 버튼 -->
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
@@ -18,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="5dp" />
 
-    <!-- 앱 이름 -->
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
@@ -32,9 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Country 버튼 -->
 
-    <!-- Temperature 버튼 -->
     <android.widget.Button
         android:id="@+id/country_button"
         android:layout_width="150dp"

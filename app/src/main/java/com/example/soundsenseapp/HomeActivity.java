@@ -38,7 +38,6 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 로그인 여부 확인
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isLoggedIn = preferences.getBoolean(KEY_IS_LOGGED_IN, false);
 
@@ -80,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             gpsLocation.startListening();
         } else {
@@ -103,12 +103,12 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
 
     @Override
     public void onLocationChanged(String countryName) {
-        countryButton.setText(countryName);
+        countryButton.setText("Location: " + countryName);
     }
 
     @Override
     public void onTemperatureChanged(float temperature) {
-        temperatureButton.setText(String.format(" %.1f°C", temperature));
+        temperatureButton.setText(String.format("Temperature: %.1f°C", temperature));
     }
 
     @Override
@@ -118,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
 
     @Override
     public void onAccelerometerChanged(float velocity) {
-        speedButton.setText(String.format(" %.2f m/s", velocity));
+        speedButton.setText(String.format("Velocity: %.2f m/s", velocity));
     }
 
     @Override
