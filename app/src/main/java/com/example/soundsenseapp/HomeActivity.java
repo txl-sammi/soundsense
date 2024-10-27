@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.soundsenseapp.ui.login.LoginActivity;
+import com.example.soundsenseapp.ui.playlist.PlaylistActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "UserPrefs";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private Button logoutButton;
+    private Button playlistButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +33,20 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             setContentView(R.layout.activity_home);
             logoutButton = findViewById(R.id.logoutButton);
+            playlistButton = findViewById(R.id.playlistButton);
 
             logoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     logout();
+                }
+            });
+
+            playlistButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, PlaylistActivity.class);
+                    startActivity(intent);
                 }
             });
         }

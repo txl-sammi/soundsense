@@ -35,4 +35,6 @@
     <string name="playlist">Playlist</string>
     <string name="playlist_title">Your Playlists</string>
     <string name="home_page">Home Activity</string>
+    <string name="album_cover_desc">album cover description</string>
+    <string name="title_activity_playlist">PlaylistActivity</string>
 </resources>

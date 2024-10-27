@@ -21,6 +21,11 @@
             android:exported="true"
             android:label="@string/title_activity_login" />
         <activity
+            android:name=".ui.playlist.PlaylistActivity"
+            android:exported="true"
+            android:label="@string/title_activity_playlist"/>
+
+        <activity
             android:name=".HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.Soundsenseapp">
