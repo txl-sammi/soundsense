@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
     SpotifyAPI API = new SpotifyAPI();
 
     private RecyclerView songRecyclerView;
-    private com.example.soundsenseapp.SongAdapter songAdapter;
+    private com.example.soundsenseapp.ui.home.SongAdapter songAdapter;
     private ArrayList<SongFormat> songList = new ArrayList<>();
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -104,7 +104,7 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
 
         songRecyclerView = findViewById(R.id.songRecyclerView);
         songRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        songAdapter = new com.example.soundsenseapp.SongAdapter(songList);
+        songAdapter = new com.example.soundsenseapp.ui.home.SongAdapter(songList);
         songRecyclerView.setAdapter(songAdapter);
 
         // Load songs asynchronously

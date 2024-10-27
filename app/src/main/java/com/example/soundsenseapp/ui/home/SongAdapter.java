@@ -1,4 +1,4 @@
-package com.example.soundsenseapp;
+package com.example.soundsenseapp.ui.home;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.soundsenseapp.R;
 import com.example.soundsenseapp.Spotify.SongFormat;
 
 import java.util.List;
