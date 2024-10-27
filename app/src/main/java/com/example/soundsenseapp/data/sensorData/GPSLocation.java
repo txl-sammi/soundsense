@@ -29,6 +29,7 @@ public class GPSLocation {
     private final LocationListener listener;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+    private String currentLoc;
 
     public GPSLocation(Context context, LocationListener listener) {
         this.context = context;
@@ -71,6 +72,7 @@ public class GPSLocation {
             if (addresses != null && !addresses.isEmpty()) {
                 String countryName = addresses.get(0).getCountryName();
                 listener.onLocationChanged(countryName);
+                currentLoc = countryName;
             } else {
                 listener.onLocationChanged("Country not found");
             }
@@ -78,6 +80,10 @@ public class GPSLocation {
             Log.e(TAG, "Geocoder failed", e);
             listener.onLocationChanged("Geocoder failed");
         }
+    }
+
+    public String getCurrentLoc() {
+        return currentLoc;
     }
 
     public interface LocationListener {

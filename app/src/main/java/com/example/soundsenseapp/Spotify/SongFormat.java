@@ -11,6 +11,14 @@ public class SongFormat {
         this.albumCover = albumCover;
         this.spotifyLink = spotifyLink;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getArtist() {
+        return this.artist;
+    }
 }
 
 

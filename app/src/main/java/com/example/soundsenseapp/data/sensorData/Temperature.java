@@ -13,6 +13,7 @@ public class Temperature implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor temperatureSensor;
     private TemperatureListener listener;
+    private float currentTemp;
 
     public Temperature(Context context, TemperatureListener listener) {
         this.listener = listener;
@@ -46,7 +47,12 @@ public class Temperature implements SensorEventListener {
             float temperature = event.values[0];
             Log.d(TAG, "Current temperature: " + temperature + "°C");
             listener.onTemperatureChanged(temperature);
+            currentTemp = temperature;
         }
+    }
+
+    public float getCurrentTemp() {
+        return currentTemp;
     }
 
     @Override

@@ -18,6 +18,7 @@ public class Accelerometer implements SensorEventListener {
     private static final float SMOOTHING_FACTOR = 0.5f;
     private float[] smoothedAcceleration = {0, 0, 0};
     private static final float MOVEMENT_THRESHOLD = 0.1f;
+    private float currentVelo;
 
     public Accelerometer(Context context, AccelerometerListener listener) {
         this.listener = listener;
@@ -74,10 +75,15 @@ public class Accelerometer implements SensorEventListener {
 
                     Log.d(TAG, "Vx: " + lastVelocity[0] + ", Vy: " + lastVelocity[1] + ", Vz: " + lastVelocity[2] + ", Total Velocity: " + totalVelocity);
                     listener.onAccelerometerChanged(totalVelocity);
+                    currentVelo = totalVelocity;
                 }
             }
             lastUpdate = currentTime;
         }
+    }
+
+    public float getCurrentVelo() {
+        return currentVelo;
     }
 
 

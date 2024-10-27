@@ -1,5 +1,7 @@
 package com.example.soundsenseapp.Spotify;
 
+import android.os.AsyncTask;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,9 +22,29 @@ public class SpotifyAPI {
     private final String CLIENT_SECRET = "a78b23e4ffab4f76800fd6888709eb75";
 
     private String token;
+    
+    public SpotifyAPI() {
+        // Empty constructor; token will be set asynchronously
+    }
 
-    public SpotifyAPI () throws IOException, JSONException {
-        token = getToken();
+    public void initializeToken(Callback callback) {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    return getToken();
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                token = result;
+                callback.onTokenReceived(result);
+            }
+        }.execute();
     }
 
     private String getToken() throws IOException, JSONException {
@@ -56,6 +78,11 @@ public class SpotifyAPI {
         JSONObject jsonResult = new JSONObject(response.toString());
         return jsonResult.getString("access_token");
     }
+
+    public interface Callback {
+        void onTokenReceived(String token);
+    }
+    
 
     public ArrayList<SongFormat> getSongsByGenre(String genre, int limit) throws IOException {
         String encodedGenre = URLEncoder.encode(genre, "UTF-8");

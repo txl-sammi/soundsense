@@ -31,12 +31,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <TextView
+        android:id="@+id/app_name2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/name_of_mood"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speed_button" />
+
     <android.widget.Button
         android:id="@+id/country_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rectangle_button"
         android:text="Country"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,94 +57,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name" />
 
+
     <android.widget.Button
         android:id="@+id/speed_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rectangle_button"
         android:text="Speed"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/country_button" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <android.widget.Button
         android:id="@+id/temperature_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/rounded_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rectangle_button"
         android:text="Temperature"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_name" />
-
-
-    <ImageView
-        android:id="@+id/playlist_1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:background="#E1BEE7"
-        android:contentDescription="Playlist 1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Recents" />
-
-    <ImageView
-        android:id="@+id/playlist_2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#E1BEE7"
-        android:contentDescription="Playlist 2"
-        app:layout_constraintStart_toEndOf="@id/playlist_1"
-        app:layout_constraintTop_toBottomOf="@id/Recents" />
-
-    <ImageView
-        android:id="@+id/playlist_4"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#00BCD4"
-        android:contentDescription="Playlist 4"
-        app:layout_constraintStart_toEndOf="@id/playlist_3"
-        app:layout_constraintTop_toBottomOf="@id/Recents" />
-
-    <ImageView
-        android:id="@+id/playlist_3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#FFF59D"
-        android:contentDescription="Playlist 3"
-        app:layout_constraintStart_toEndOf="@id/playlist_2"
-        app:layout_constraintTop_toBottomOf="@id/Recents" />
-
-    <TextView
-        android:id="@+id/Recents"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Recents"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/speed_button" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <LinearLayout
         android:id="@+id/navigation_bar"
@@ -139,7 +90,9 @@
         android:layout_height="wrap_content"
         android:background="#222"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/nav_home"
@@ -148,7 +101,7 @@
             android:layout_weight="1"
             android:contentDescription="Home"
             android:padding="16dp"
-            tools:srcCompat="@drawable/home_nav" />
+            tools:srcCompat="@drawable/home_active_nav" />
 
         <ImageView
             android:id="@+id/nav_search"
@@ -157,7 +110,7 @@
             android:layout_weight="1"
             android:contentDescription="Search"
             android:padding="16dp"
-            tools:srcCompat="@drawable/search_active_nav" />
+            tools:srcCompat="@drawable/search_nav" />
 
         <ImageView
             android:id="@+id/nav_music"
@@ -177,4 +130,47 @@
             android:padding="9dp"
             tools:srcCompat="@drawable/profile_pic" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="61dp"
+        android:layout_height="14dp"
+        android:text="Location"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/country_button"
+        app:layout_constraintStart_toStartOf="@+id/country_button"
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Temperature"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/temperature_button"
+        app:layout_constraintTop_toBottomOf="@+id/country_button" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="12dp"
+        android:text="Velocity"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperature_button" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/songRecyclerView"
+        android:layout_width="409dp"
+        android:layout_height="195dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
