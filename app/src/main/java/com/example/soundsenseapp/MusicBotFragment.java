@@ -12,21 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.soundsenseapp.data.util.ChatMessage;
+import com.example.soundsenseapp.data.util.ChatViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import com.example.soundsenseapp.data.util.ChatMessage;
 
 public class MusicBotFragment extends Fragment {
 
-    private ArrayList<ChatMessage> messageList;
+    private ChatViewModel chatViewModel;
     private ChatAdapter chatAdapter;
     private EditText inputBox;
     private RequestQueue requestQueue;
@@ -41,11 +43,16 @@ public class MusicBotFragment extends Fragment {
         inputBox = view.findViewById(R.id.inputBox);
         Button sendButton = view.findViewById(R.id.sendButton);
 
-        messageList = new ArrayList<>();
-        chatAdapter = new ChatAdapter(messageList);
+        chatViewModel = new ViewModelProvider(requireActivity()).get(ChatViewModel.class);
+        chatAdapter = new ChatAdapter(chatViewModel.getMessages().getValue() != null ? chatViewModel.getMessages().getValue() : new ArrayList<>());
         RecyclerView chatRecyclerView = view.findViewById(R.id.chatRecyclerView);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         chatRecyclerView.setAdapter(chatAdapter);
+
+        chatViewModel.getMessages().observe(getViewLifecycleOwner(), newMessages -> {
+            chatAdapter.notifyDataSetChanged();
+            chatRecyclerView.scrollToPosition(newMessages.size() - 1);
+        });
 
         requestQueue = Volley.newRequestQueue(requireContext());
 
@@ -54,8 +61,7 @@ public class MusicBotFragment extends Fragment {
             if (userInput.isEmpty()) {
                 Toast.makeText(getContext(), "Input cannot be empty!", Toast.LENGTH_SHORT).show();
             } else {
-                messageList.add(new ChatMessage(userInput, 0));
-                chatAdapter.notifyItemInserted(messageList.size() - 1);
+                chatViewModel.addMessage(new ChatMessage(userInput, 0));
                 inputBox.setText("");
                 sendQuestion(userInput);
             }
@@ -79,7 +85,7 @@ public class MusicBotFragment extends Fragment {
 
             jsonObject.put("messages", messagesArray);
             jsonObject.put("max_tokens", 300);
-            jsonObject.put("temperature", 0.7);  // 温度控制输出的随机性
+            jsonObject.put("temperature", 0.7);
         } catch (Exception e) {
             Log.e("ChatFragment", "Error creating JSON object: " + e.getMessage());
         }
@@ -93,8 +99,7 @@ public class MusicBotFragment extends Fragment {
                                 .getJSONObject("message")
                                 .getString("content");
 
-                        messageList.add(new ChatMessage(responseMsg.trim(), 1));
-                        chatAdapter.notifyItemInserted(messageList.size() - 1);
+                        chatViewModel.addMessage(new ChatMessage(responseMsg.trim(), 1));
                     } catch (Exception e) {
                         Log.e("ChatFragment", "Error parsing response: " + e.getMessage());
                     }
@@ -119,5 +124,4 @@ public class MusicBotFragment extends Fragment {
 
         requestQueue.add(jsonObjectRequest);
     }
-
 }
