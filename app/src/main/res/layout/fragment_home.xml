@@ -30,41 +30,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Adjust marginTop to 0dp -->
 
     <TextView
         android:id="@+id/app_name2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
         android:text="@string/name_of_mood"
-        android:textColor="@android:color/white"
-        android:textSize="36sp"
-        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/speed_button" />
+
+    <Button
+        android:id="@+id/mood_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/blue"
+        android:text="@string/mood"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintStart_toEndOf="@id/app_name2"
+        app:layout_constraintTop_toTopOf="@id/app_name2" />
 
     <android.widget.Button
         android:id="@+id/country_button"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/rectangle_button"
         android:text="Country"
+        android:backgroundTint="@color/white"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name" />
 
-
     <android.widget.Button
         android:id="@+id/speed_button"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/rectangle_button"
         android:text="Speed"
+        android:backgroundTint="@color/white"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.142"
@@ -76,8 +89,8 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/rectangle_button"
         android:text="Temperature"
+        android:backgroundTint="@color/white"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.142"
@@ -86,21 +99,23 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="61dp"
-        android:layout_height="20dp"
+        android:layout_width="147dp"
+        android:layout_height="21dp"
         android:text="Location"
         android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/country_button"
         app:layout_constraintStart_toStartOf="@+id/country_button"
         app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="146dp"
+        android:layout_height="19dp"
         android:layout_marginTop="16dp"
         android:text="Temperature"
         android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/temperature_button"
         app:layout_constraintTop_toBottomOf="@+id/country_button" />
 
@@ -111,6 +126,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="12dp"
         android:text="Velocity"
+        android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temperature_button" />

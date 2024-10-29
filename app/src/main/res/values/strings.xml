@@ -36,4 +36,5 @@
     <string name="home_page">Home Activity</string>
     <string name="music_gpt">musicGPT</string>
     <string name="user">User</string>
+    <string name="mood">Mood</string>
 </resources>
