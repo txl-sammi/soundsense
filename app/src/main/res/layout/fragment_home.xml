@@ -87,7 +87,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="61dp"
-        android:layout_height="14dp"
+        android:layout_height="20dp"
         android:text="Location"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/country_button"
