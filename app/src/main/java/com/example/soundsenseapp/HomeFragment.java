@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.soundsenseapp.Spotify.SongFormat;
 import com.example.soundsenseapp.data.sensorData.Accelerometer;
 import com.example.soundsenseapp.data.sensorData.GPSLocation;
 import com.example.soundsenseapp.data.sensorData.Temperature;
@@ -36,9 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment implements Temperature.TemperatureListener, Accelerometer.AccelerometerListener, GPSLocation.LocationListener {
 
@@ -51,14 +46,10 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
     private Button temperatureButton;
     private Button speedButton;
     private Button moodButton;
-    private TextView moodTextView;
 
     private Temperature temperatureSensor;
     private Accelerometer accelerometer;
     private GPSLocation gpsLocation;
-
-    private ArrayList<SongFormat> songList = new ArrayList<>();
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public HomeFragment() throws JSONException, IOException {
     }
@@ -81,7 +72,6 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             temperatureButton = view.findViewById(R.id.temperature_button);
             speedButton = view.findViewById(R.id.speed_button);
             moodButton = view.findViewById(R.id.mood_button);
-            moodTextView = view.findViewById(R.id.app_name2);
 
             gpsLocation = new GPSLocation(requireActivity(), this);
 
@@ -205,7 +195,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
                                 .getJSONObject(0)
                                 .getJSONObject("message")
                                 .getString("content");
-                        moodTextView.setText("Mood is: " + moodWord.trim());
+                        moodButton.setText("Mood is " + moodWord.trim());
                     } catch (Exception e) {
                         Log.e("HomeFragment", "Error parsing response: " + e.getMessage());
                     }
