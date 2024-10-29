@@ -19,6 +19,14 @@ public class SongFormat {
     public String getArtist() {
         return this.artist;
     }
+
+    public String getAlbumCover() {
+        return albumCover;
+    }
+
+    public String getSpotifyLink() {
+        return spotifyLink;
+    }
 }
 
 
