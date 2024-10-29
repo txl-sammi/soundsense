@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.soundsenseapp.HomeActivity;
+import com.example.soundsenseapp.MainActivity;
 import com.example.soundsenseapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -79,7 +79,7 @@ public class SignupActivity extends AppCompatActivity {
                         editor.putBoolean("isLoggedIn", true);
                         editor.apply();
 
-                        Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {

@@ -8,7 +8,6 @@
     <string name="login">Login</string>
     <string name="previous">Previous</string>
 
-    <!-- Strings related to login -->
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="prompt_email">Email</string>
@@ -35,4 +34,6 @@
     <string name="playlist">Playlist</string>
     <string name="playlist_title">Your Playlists</string>
     <string name="home_page">Home Activity</string>
+    <string name="music_gpt">musicGPT</string>
+    <string name="user">User</string>
 </resources>

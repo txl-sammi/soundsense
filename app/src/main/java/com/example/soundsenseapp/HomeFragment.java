@@ -7,13 +7,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +28,6 @@ import com.example.soundsenseapp.data.sensorData.GPSLocation;
 import com.example.soundsenseapp.data.sensorData.Temperature;
 import com.example.soundsenseapp.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.example.soundsenseapp.data.playlistData.AllDataGenre;
 
 import org.json.JSONException;
@@ -32,11 +35,10 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class HomeActivity extends AppCompatActivity implements Temperature.TemperatureListener, Accelerometer.AccelerometerListener, GPSLocation.LocationListener {
+public class HomeFragment extends Fragment implements Temperature.TemperatureListener, Accelerometer.AccelerometerListener, GPSLocation.LocationListener {
 
     private static final String PREFS_NAME = "UserPrefs";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
@@ -58,59 +60,57 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
     private ArrayList<SongFormat> songList = new ArrayList<>();
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public HomeActivity() throws JSONException, IOException {
+    public HomeFragment() throws JSONException, IOException {
     }
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences preferences = requireActivity().getSharedPreferences(PREFS_NAME, requireActivity().MODE_PRIVATE);
         boolean isLoggedIn = preferences.getBoolean(KEY_IS_LOGGED_IN, false);
 
         if (!isLoggedIn) {
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
             startActivity(intent);
-            finish();
+            requireActivity().finish();
         } else {
-            setContentView(R.layout.activity_home);
+            logoutButton = view.findViewById(R.id.logoutButton);
+            countryButton = view.findViewById(R.id.country_button);
+            temperatureButton = view.findViewById(R.id.temperature_button);
+            speedButton = view.findViewById(R.id.speed_button);
 
-            logoutButton = findViewById(R.id.logoutButton);
-            countryButton = findViewById(R.id.country_button);
-            temperatureButton = findViewById(R.id.temperature_button);
-            speedButton = findViewById(R.id.speed_button);
+            gpsLocation = new GPSLocation(requireActivity(), this);
 
-            gpsLocation = new GPSLocation(this, this);
-
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION_PERMISSION);
+            if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION_PERMISSION);
             } else {
                 gpsLocation.startListening();
             }
 
-
-            temperatureSensor = new Temperature(this, this);
+            temperatureSensor = new Temperature(requireActivity(), this);
             temperatureSensor.startListening();
 
-            accelerometer = new Accelerometer(this, this);
+            accelerometer = new Accelerometer(requireActivity(), this);
             accelerometer.startListening();
 
             logoutButton.setOnClickListener(v -> logout());
 
-            countryButton.setOnClickListener(v -> Toast.makeText(HomeActivity.this, "Country: " + countryButton.getText().toString(), Toast.LENGTH_SHORT).show());
-            temperatureButton.setOnClickListener(v -> Toast.makeText(HomeActivity.this, "Temperature sensor is active", Toast.LENGTH_SHORT).show());
-            speedButton.setOnClickListener(v -> Toast.makeText(HomeActivity.this, "Speed sensor is active", Toast.LENGTH_SHORT).show());
+            countryButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Country: " + countryButton.getText().toString(), Toast.LENGTH_SHORT).show());
+            temperatureButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Temperature sensor is active", Toast.LENGTH_SHORT).show());
+            speedButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Speed sensor is active", Toast.LENGTH_SHORT).show());
+
+            // songRecyclerView = view.findViewById(R.id.songRecyclerView);
+            // songRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+            // songAdapter = new com.example.soundsenseapp.ui.home.SongAdapter(songList);
+            // songRecyclerView.setAdapter(songAdapter);
+
+            // loadSongs();
         }
 
-        songRecyclerView = findViewById(R.id.songRecyclerView);
-        songRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        songAdapter = new com.example.soundsenseapp.ui.home.SongAdapter(songList);
-        songRecyclerView.setAdapter(songAdapter);
-
-        // Load songs asynchronously
-        loadSongs();
+        return view;
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -118,13 +118,13 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             gpsLocation.startListening();
         } else {
-            Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), "Location permission denied", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if (temperatureSensor != null) {
             temperatureSensor.stopListening();
         }
@@ -178,26 +178,26 @@ public class HomeActivity extends AppCompatActivity implements Temperature.Tempe
         executor.execute(() -> {
             try {
                 ArrayList<SongFormat> songs = getSongs();
-                runOnUiThread(() -> {
+                requireActivity().runOnUiThread(() -> {
                     songList.clear();
                     songList.addAll(songs);
                     songAdapter.notifyDataSetChanged();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(HomeActivity.this, "Failed to load songs", Toast.LENGTH_SHORT).show());
+                requireActivity().runOnUiThread(() -> Toast.makeText(requireActivity(), "Failed to load songs", Toast.LENGTH_SHORT).show());
             }
         });
     }
 
     public void logout() {
         FirebaseAuth.getInstance().signOut();
-        SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        SharedPreferences preferences = requireActivity().getSharedPreferences("UserPrefs", requireActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("isLoggedIn", false);
         editor.apply();
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        Intent intent = new Intent(requireActivity(), LoginActivity.class);
         startActivity(intent);
-        finish();
+        requireActivity().finish();
     }
 }

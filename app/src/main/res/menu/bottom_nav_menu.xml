@@ -1,0 +1,19 @@
+<!-- res/menu/bottom_nav_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:title="@string/home"
+        android:icon="@drawable/home_nav" />
+    <item
+        android:id="@+id/navigation_playlists"
+        android:title="@string/playlist"
+        android:icon="@drawable/music_nav" />
+    <item
+        android:id="@+id/navigation_musicGPT"
+        android:title="@string/music_gpt"
+        android:icon="@drawable/search_nav" />
+    <item
+        android:id="@+id/navigation_user"
+        android:title="@string/user"
+        android:icon="@drawable/profile_nav" />
+</menu>
