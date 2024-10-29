@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
     private Accelerometer accelerometer;
     private GPSLocation gpsLocation;
 
-    SpotifyAPI API = new SpotifyAPI();
+    // SpotifyAPI API = new SpotifyAPI();
 
     private RecyclerView songRecyclerView;
     private com.example.soundsenseapp.ui.home.SongAdapter songAdapter;
@@ -161,34 +161,34 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
         speedButton.setText("Accelerometer unavailable");
     }
 
-    public ArrayList<SongFormat> getSongs() throws Exception {
-        ArrayList<SongFormat> songs = new ArrayList<>();
-        List<String> genres = AllDataGenre.suggestGenres(accelerometer.getCurrentVelo(), gpsLocation.getCurrentLoc(), temperatureSensor.getCurrentTemp());
-        for (String genre: genres) {
-            songs.addAll(API.getSongsByGenre(genre,10));
-        }
-        int minVelo = round(accelerometer.getCurrentVelo() - 10);
-        int maxVelo = round(accelerometer.getCurrentVelo() + 10);
-        songs.addAll(API.getSongsByTempo("pop", minVelo, maxVelo, 20));
+//    public ArrayList<SongFormat> getSongs() throws Exception {
+//        ArrayList<SongFormat> songs = new ArrayList<>();
+//        List<String> genres = AllDataGenre.suggestGenres(accelerometer.getCurrentVelo(), gpsLocation.getCurrentLoc(), temperatureSensor.getCurrentTemp());
+//        for (String genre: genres) {
+//            songs.addAll(API.getSongsByGenre(genre,10));
+//        }
+//        int minVelo = round(accelerometer.getCurrentVelo() - 10);
+//        int maxVelo = round(accelerometer.getCurrentVelo() + 10);
+//        songs.addAll(API.getSongsByTempo("pop", minVelo, maxVelo, 20));
+//
+//        return songs;
+//    }
 
-        return songs;
-    }
-
-    private void loadSongs() {
-        executor.execute(() -> {
-            try {
-                ArrayList<SongFormat> songs = getSongs();
-                requireActivity().runOnUiThread(() -> {
-                    songList.clear();
-                    songList.addAll(songs);
-                    songAdapter.notifyDataSetChanged();
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-                requireActivity().runOnUiThread(() -> Toast.makeText(requireActivity(), "Failed to load songs", Toast.LENGTH_SHORT).show());
-            }
-        });
-    }
+//    private void loadSongs() {
+//        executor.execute(() -> {
+//            try {
+//                ArrayList<SongFormat> songs = getSongs();
+//                requireActivity().runOnUiThread(() -> {
+//                    songList.clear();
+//                    songList.addAll(songs);
+//                    songAdapter.notifyDataSetChanged();
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                requireActivity().runOnUiThread(() -> Toast.makeText(requireActivity(), "Failed to load songs", Toast.LENGTH_SHORT).show());
+//            }
+//        });
+//    }
 
     public void logout() {
         FirebaseAuth.getInstance().signOut();

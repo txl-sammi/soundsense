@@ -1,7 +1,5 @@
 package com.example.soundsenseapp.Spotify;
 
-import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,57 +14,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class SpotifyAPI {
     private final String CLIENT_ID = "ac2f7e13ec9b4280a7111db9ea8e8283";
     private final String CLIENT_SECRET = "a78b23e4ffab4f76800fd6888709eb75";
-
     private String token;
-    
-    public SpotifyAPI() {
-        // Empty constructor; token will be set asynchronously
-    }
 
-    public void initializeToken(Callback callback) {
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... voids) {
-                try {
-                    return getToken();
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(String result) {
-                token = result;
-                callback.onTokenReceived(result);
-            }
-        }.execute();
+    public SpotifyAPI () throws IOException, JSONException {
+        token = getToken();
     }
 
     private String getToken() throws IOException, JSONException {
         String authString = CLIENT_ID + ":" + CLIENT_SECRET;
         String authBase64 = Base64.getEncoder().encodeToString(authString.getBytes(StandardCharsets.UTF_8));
-
         String url = "https://accounts.spotify.com/api/token";
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Authorization", "Basic " + authBase64);
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         connection.setDoOutput(true);
-
         String data = "grant_type=client_credentials";
         try (OutputStream os = connection.getOutputStream()) {
             os.write(data.getBytes(StandardCharsets.UTF_8));
         }
-
         if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to get token: " + connection.getResponseCode() + " " + connection.getResponseMessage());
         }
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuilder response = new StringBuilder();
         String line;
@@ -74,15 +46,9 @@ public class SpotifyAPI {
             response.append(line);
         }
         reader.close();
-
         JSONObject jsonResult = new JSONObject(response.toString());
         return jsonResult.getString("access_token");
     }
-
-    public interface Callback {
-        void onTokenReceived(String token);
-    }
-    
 
     public ArrayList<SongFormat> getSongsByGenre(String genre, int limit) throws IOException {
         String encodedGenre = URLEncoder.encode(genre, "UTF-8");
@@ -91,12 +57,10 @@ public class SpotifyAPI {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer " + token);
-
         int responseCode = connection.getResponseCode();
         if (responseCode != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to search for genre: " + responseCode + " " + connection.getResponseMessage());
         }
-
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
             StringBuilder response = new StringBuilder();
             String line;
@@ -112,7 +76,6 @@ public class SpotifyAPI {
                 String artistName = track.getJSONArray("artists").getJSONObject(0).getString("name");
                 String albumCoverUrl = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
                 String trackUrl = track.getJSONObject("external_urls").getString("spotify");
-
                 SongFormat trackFormat = new SongFormat(trackName, artistName, albumCoverUrl, trackUrl);
                 trackList.add(trackFormat);
             }
@@ -137,7 +100,6 @@ public class SpotifyAPI {
         if (responseCode != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to search for genre: " + responseCode + " " + connection.getResponseMessage());
         }
-
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
             StringBuilder response = new StringBuilder();
             String line;
@@ -153,7 +115,6 @@ public class SpotifyAPI {
                 String artistName = track.getJSONArray("artists").getJSONObject(0).getString("name");
                 String albumCoverUrl = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
                 String trackUrl = track.getJSONObject("external_urls").getString("spotify");
-
                 SongFormat trackFormat = new SongFormat(trackName, artistName, albumCoverUrl, trackUrl);
                 trackList.add(trackFormat);
             }
@@ -178,7 +139,6 @@ public class SpotifyAPI {
         if (responseCode != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to search for genre: " + responseCode + " " + connection.getResponseMessage());
         }
-
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
             StringBuilder response = new StringBuilder();
             String line;
@@ -194,7 +154,6 @@ public class SpotifyAPI {
                 String artistName = track.getJSONArray("artists").getJSONObject(0).getString("name");
                 String albumCoverUrl = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
                 String trackUrl = track.getJSONObject("external_urls").getString("spotify");
-
                 SongFormat trackFormat = new SongFormat(trackName, artistName, albumCoverUrl, trackUrl);
                 trackList.add(trackFormat);
             }
@@ -219,7 +178,6 @@ public class SpotifyAPI {
         if (responseCode != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to search for genre: " + responseCode + " " + connection.getResponseMessage());
         }
-
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
             StringBuilder response = new StringBuilder();
             String line;
@@ -235,7 +193,6 @@ public class SpotifyAPI {
                 String artistName = track.getJSONArray("artists").getJSONObject(0).getString("name");
                 String albumCoverUrl = track.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
                 String trackUrl = track.getJSONObject("external_urls").getString("spotify");
-
                 SongFormat trackFormat = new SongFormat(trackName, artistName, albumCoverUrl, trackUrl);
                 trackList.add(trackFormat);
             }
@@ -245,4 +202,3 @@ public class SpotifyAPI {
         }
     }
 }
-

@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.firebase.auth)
     implementation(libs.play.services.location)
+    implementation("com.android.volley:volley:1.2.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
