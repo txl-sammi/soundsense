@@ -1,5 +1,8 @@
 package com.example.soundsenseapp.Spotify;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +23,7 @@ public class SpotifyAPI {
     private String token;
 
     public SpotifyAPI () throws IOException, JSONException {
-        token = getToken();
+        token = String.valueOf(new GetTokenTask().execute());
     }
 
     private String getToken() throws IOException, JSONException {
@@ -35,6 +38,8 @@ public class SpotifyAPI {
         String data = "grant_type=client_credentials";
         try (OutputStream os = connection.getOutputStream()) {
             os.write(data.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            Log.e("SpotifyAPI", "Error in getToken output stream: " + e.getMessage(), e);
         }
         if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to get token: " + connection.getResponseCode() + " " + connection.getResponseMessage());
@@ -48,6 +53,27 @@ public class SpotifyAPI {
         reader.close();
         JSONObject jsonResult = new JSONObject(response.toString());
         return jsonResult.getString("access_token");
+    }
+
+    private class GetTokenTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                return getToken();
+            } catch (Exception e) {
+                Log.e("SpotifyAPI", "Error getting token: " + e.getMessage(), e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String token) {
+            if (token != null) {
+                Log.d("SpotifyAPI", "Token: " + token);
+            } else {
+                Log.e("SpotifyAPI", "Failed to retrieve token.");
+            }
+        }
     }
 
     public ArrayList<SongFormat> getSongsByGenre(String genre, int limit) throws IOException {
