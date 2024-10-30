@@ -5,6 +5,7 @@ public class SongFormat {
     public String artist;
     public String albumCover;
     public String spotifyLink;
+
     public SongFormat(String name, String artist, String albumCover, String spotifyLink) {
         this.name = name;
         this.artist = artist;

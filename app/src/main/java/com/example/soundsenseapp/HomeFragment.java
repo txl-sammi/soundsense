@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,11 +19,15 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.soundsenseapp.Spotify.SongFormat;
+import com.example.soundsenseapp.Spotify.SpotifyAPI;
 import com.example.soundsenseapp.data.sensorData.Accelerometer;
 import com.example.soundsenseapp.data.sensorData.GPSLocation;
 import com.example.soundsenseapp.data.sensorData.Temperature;
@@ -34,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements Temperature.TemperatureListener, Accelerometer.AccelerometerListener, GPSLocation.LocationListener {
 
@@ -50,6 +56,12 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
     private Temperature temperatureSensor;
     private Accelerometer accelerometer;
     private GPSLocation gpsLocation;
+
+    private RecyclerView playlistRecyclerView;
+    private PlaylistAdapter playlistAdapter;
+    private SpotifyAPI spotifyAPI;
+    private ArrayList<SongFormat> playlist = new ArrayList<>();
+
 
     public HomeFragment() throws JSONException, IOException {
     }
@@ -93,6 +105,19 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             temperatureButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Temperature sensor is active", Toast.LENGTH_SHORT).show());
             speedButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Speed sensor is active", Toast.LENGTH_SHORT).show());
             moodButton.setOnClickListener(v -> getMood());
+
+            playlistRecyclerView = view.findViewById(R.id.playlistRecyclerView);
+            playlistRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            playlistAdapter = new PlaylistAdapter(playlist, song -> openSpotifyLink(song.getSpotifyLink()));
+            playlistRecyclerView.setAdapter(playlistAdapter);
+            Button speedButton = view.findViewById(R.id.speed_button);
+            speedButton.setOnClickListener(v -> fetchSongsByEnergy());
+
+            try {
+                spotifyAPI = new SpotifyAPI();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return view;
@@ -220,5 +245,27 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
 
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private void openSpotifyLink(String link) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        intent.setPackage("com.spotify.music");
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+        }
+    }
+
+    private void fetchSongsByEnergy() {
+        new Thread(() -> {
+            try {
+                playlist.clear();
+                playlist.addAll(spotifyAPI.getSongsByEnergy("pop", 0, 80, 10));
+                getActivity().runOnUiThread(() -> playlistAdapter.notifyDataSetChanged());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }
