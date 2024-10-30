@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.play.services.location)
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.spotify.android:auth:1.2.5")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
