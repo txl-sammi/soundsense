@@ -117,7 +117,8 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             moodButton.setOnClickListener(v -> getMood());
             saveButton.setOnClickListener(v -> {
                 if (playlist != null && !playlist.isEmpty() && playlistNameTextView.getText() != null) {
-                    DatabaseHelper.savePlaylist((String) playlistNameTextView.getText(), playlist);
+                    DatabaseHelper dbHelper = DatabaseHelper.getInstance(getContext());
+                    DatabaseHelper.savePlaylist(dbHelper, (String) playlistNameTextView.getText(), playlist);
                     Toast.makeText(requireActivity(), "Playlist saved successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(requireActivity(), "No available playlist", Toast.LENGTH_SHORT).show();
