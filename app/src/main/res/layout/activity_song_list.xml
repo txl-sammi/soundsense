@@ -4,7 +4,6 @@
     android:background="@color/black"
     android:layout_height="match_parent">
 
-    <!-- Back Button -->
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
@@ -14,7 +13,6 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back_arrow" />
 
-    <!-- Playlist Title -->
     <TextView
         android:id="@+id/playlistTitle"
         android:layout_width="wrap_content"
@@ -26,7 +24,6 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- Song List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/songsRecyclerView"
         android:layout_width="match_parent"
