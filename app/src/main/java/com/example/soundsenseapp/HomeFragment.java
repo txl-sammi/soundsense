@@ -27,6 +27,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.soundsenseapp.Spotify.DatabaseHelper;
 import com.example.soundsenseapp.Spotify.SongFormat;
 import com.example.soundsenseapp.Spotify.SpotifyAPI;
 import com.example.soundsenseapp.data.sensorData.Accelerometer;
@@ -55,6 +56,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
     private Button temperatureButton;
     private Button speedButton;
     private Button moodButton;
+    private Button saveButton;
 
     private Temperature temperatureSensor;
     private Accelerometer accelerometer;
@@ -91,6 +93,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             temperatureButton = view.findViewById(R.id.temperature_button);
             speedButton = view.findViewById(R.id.speed_button);
             moodButton = view.findViewById(R.id.mood_button);
+            saveButton = view.findViewById(R.id.save_button);
 
             gpsLocation = new GPSLocation(requireActivity(), this);
             playlistNameTextView = view.findViewById(R.id.playlist_name);
@@ -112,6 +115,14 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             countryButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Country: " + countryButton.getText().toString(), Toast.LENGTH_SHORT).show());
             temperatureButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Temperature sensor is active", Toast.LENGTH_SHORT).show());
             moodButton.setOnClickListener(v -> getMood());
+            saveButton.setOnClickListener(v -> {
+                if (playlist != null && !playlist.isEmpty() && playlistNameTextView.getText() != null) {
+                    DatabaseHelper.savePlaylist((String) playlistNameTextView.getText(), playlist);
+                    Toast.makeText(requireActivity(), "Playlist saved successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireActivity(), "No available playlist", Toast.LENGTH_SHORT).show();
+                }
+            });
 
             playlistRecyclerView = view.findViewById(R.id.playlistRecyclerView);
             playlistRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
