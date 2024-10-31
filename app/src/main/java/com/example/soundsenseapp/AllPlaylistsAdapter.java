@@ -39,6 +39,7 @@ public class AllPlaylistsAdapter extends RecyclerView.Adapter<AllPlaylistsAdapte
         holder.viewSongsButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, SongsActivity.class);
             intent.putExtra("PLAYLIST_ID", playlist.getId());
+            intent.putExtra("PLAYLIST_NAME", playlist.getName());
             context.startActivity(intent);
         });
     }
