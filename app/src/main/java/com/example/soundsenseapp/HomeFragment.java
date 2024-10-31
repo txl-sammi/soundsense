@@ -34,7 +34,6 @@ import com.example.soundsenseapp.data.sensorData.GPSLocation;
 import com.example.soundsenseapp.data.sensorData.Temperature;
 import com.example.soundsenseapp.data.util.Genre;
 import com.example.soundsenseapp.ui.login.LoginActivity;
-import com.google.firebase.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
@@ -50,7 +49,6 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
     private static final String PREFS_NAME = "UserPrefs";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
-    private static final String chatgptAPI = "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";
 
     private Button logoutButton;
     private Button countryButton;
@@ -263,7 +261,8 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
                 java.util.HashMap<String, String> headers = new java.util.HashMap<>();
                 headers.put("Content-Type", "application/json");
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer " + chatgptAPI);
+                String apiKey = BuildConfig.CHATGPT_API_KEY;
+                headers.put("Authorization", "Bearer " + apiKey);
                 return headers;
             }
         };
@@ -318,7 +317,8 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             public java.util.Map<String, String> getHeaders() {
                 java.util.HashMap<String, String> headers = new java.util.HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer " + chatgptAPI);
+                String apiKey = BuildConfig.CHATGPT_API_KEY;
+                headers.put("Authorization", "Bearer " + apiKey);
                 return headers;
             }
         };
