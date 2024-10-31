@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,8 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
     private float currentSpeed;
     private float currentTemperature = 21;
 
+    private TextView playlistNameTextView;
+
 
     public HomeFragment() throws JSONException, IOException {
     }
@@ -91,6 +94,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             moodButton = view.findViewById(R.id.mood_button);
 
             gpsLocation = new GPSLocation(requireActivity(), this);
+            playlistNameTextView = view.findViewById(R.id.playlist_name);
 
             if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION_PERMISSION);
@@ -204,6 +208,68 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
         sendMoodRequest(prompt);
     }
 
+    private void generatePlaylistName(ArrayList<SongFormat> playlist) {
+        StringBuilder songNames = new StringBuilder();
+        StringBuilder artistsNames = new StringBuilder();
+        for (SongFormat song : playlist) {
+            songNames.append(song.getName()).append(", ");
+            artistsNames.append(song.getArtist()).append(", ");
+        }
+        String prompt = "Generate a playlist name less than or equal than 5 words based on the following songs and corresponding artist's names: " + songNames.toString() + artistsNames.toString();
+        String url = "https://api.openai.com/v1/chat/completions";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("model", "gpt-3.5-turbo");
+
+            JSONArray messagesArray = new JSONArray();
+            JSONObject messageObject = new JSONObject();
+            messageObject.put("role", "user");
+            messageObject.put("content", prompt);
+            messagesArray.put(messageObject);
+
+            jsonObject.put("messages", messagesArray);
+            jsonObject.put("max_tokens", 10);
+            jsonObject.put("temperature", 0.5);
+        } catch (Exception e) {
+            Log.e("HomeFragment", "Error creating JSON object: " + e.getMessage());
+        }
+
+        @SuppressLint("SetTextI18n") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, url, jsonObject,
+                response -> {
+                    try {
+                        String playlistNameWord = response.getJSONArray("choices")
+                                .getJSONObject(0)
+                                .getJSONObject("message")
+                                .getString("content");
+                        playlistNameTextView.setText(playlistNameWord.trim());
+                    } catch (Exception e) {
+                        Log.e("HomeFragment", "Error parsing response: " + e.getMessage());
+                    }
+                },
+                error -> {
+                    if (error.networkResponse != null) {
+                        String errorMsg = new String(error.networkResponse.data);
+                        Log.e("HomeFragment", "Error: " + errorMsg);
+                    } else {
+                        Log.e("HomeFragment", "Error: " + error.getMessage());
+                    }
+                }
+        ) {
+            @Override
+            public java.util.Map<String, String> getHeaders() {
+                java.util.HashMap<String, String> headers = new java.util.HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer ");
+                return headers;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+        requestQueue.add(jsonObjectRequest);
+    }
+
     private void sendMoodRequest(String prompt) {
         String url = "https://api.openai.com/v1/chat/completions";
 
@@ -295,6 +361,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
 
                 if(spotifyAPI != null) {
                     playlist.addAll(spotifyAPI.getSongsByEnergy(randomGenre, minEnergy, maxEnergy, 10));
+                    generatePlaylistName(playlist);
                 } else {
                     Log.e("HomeFragment", "SpotifyAPI instance is null");
                 }
@@ -318,6 +385,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
 
                 if(spotifyAPI != null) {
                     playlist.addAll(spotifyAPI.getSongsByTempo(randomGenre, minTempo, maxTempo, 10));
+                    generatePlaylistName(playlist);
                 } else {
                     Log.e("HomeFragment", "SpotifyAPI instance is null");
                 }
