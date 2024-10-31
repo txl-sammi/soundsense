@@ -13,6 +13,18 @@ public class Playlist {
         this.creationDate = creationDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
     @NonNull
     @Override
     public String toString() {
