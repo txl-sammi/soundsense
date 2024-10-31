@@ -14,6 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "spotify.db";
     private static final int DATABASE_VERSION = 1;
+    private static DatabaseHelper instance;
 
     private static final String CREATE_PLAYLISTS_TABLE =
             "CREATE TABLE IF NOT EXISTS Playlists (" +
@@ -51,6 +52,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Playlists");
         db.execSQL("DROP TABLE IF EXISTS Songs");
         onCreate(db);
+    }
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return instance;
     }
 
     public static void savePlaylist(DatabaseHelper dbHelper, String playlistName, ArrayList<SongFormat> songs) {
