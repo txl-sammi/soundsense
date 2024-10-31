@@ -68,7 +68,7 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.spotify.android:auth:1.2.5")
     implementation("androidx.security:security-crypto:1.1.0-alpha03")
-    implementation ("org.xerial:sqlite-jdbc:3.36.0.3")
+    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
