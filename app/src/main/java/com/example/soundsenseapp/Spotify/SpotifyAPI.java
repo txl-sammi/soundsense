@@ -67,8 +67,9 @@ public class SpotifyAPI {
         }
 
         @Override
-        protected void onPostExecute(String token) {
+        protected void onPostExecute(String retrievedToken) {
             if (token != null) {
+                token = retrievedToken;
                 Log.d("SpotifyAPI", "Token: " + token);
             } else {
                 Log.e("SpotifyAPI", "Failed to retrieve token.");
@@ -150,7 +151,14 @@ public class SpotifyAPI {
         }
     }
 
+    private void checkAndRefreshToken() throws IOException, JSONException {
+        if (this.token == null || this.token.isEmpty()) {
+            this.token = getToken();
+        }
+    }
+
     public ArrayList<SongFormat> getSongsByEnergy(String genre, int minEnergy, int maxEnergy, int limit) throws Exception {
+        checkAndRefreshToken();
         String encodedGenre = URLEncoder.encode(genre, "UTF-8");
         String url = "https://api.spotify.com/v1/recommendations?seed_genres=" + URLEncoder.encode(genre, "UTF-8") +
                 "&limit=" + limit +
@@ -162,6 +170,15 @@ public class SpotifyAPI {
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer " + token);
         int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+            this.token = String.valueOf(new GetTokenTask().execute());
+            try {
+                connection.setRequestProperty("Authorization", "Bearer " + token);
+            } catch (Exception e) {
+                Log.e("HomeFragment", "SpotifyAPI");
+            }
+            responseCode = connection.getResponseCode();
+        }
         if (responseCode != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to search for genre: " + responseCode + " " + connection.getResponseMessage());
         }
