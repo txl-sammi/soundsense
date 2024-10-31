@@ -31,6 +31,7 @@ import com.example.soundsenseapp.Spotify.SpotifyAPI;
 import com.example.soundsenseapp.data.sensorData.Accelerometer;
 import com.example.soundsenseapp.data.sensorData.GPSLocation;
 import com.example.soundsenseapp.data.sensorData.Temperature;
+import com.example.soundsenseapp.data.util.Genre;
 import com.example.soundsenseapp.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HomeFragment extends Fragment implements Temperature.TemperatureListener, Accelerometer.AccelerometerListener, GPSLocation.LocationListener {
 
@@ -61,6 +63,8 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
     private PlaylistAdapter playlistAdapter;
     private SpotifyAPI spotifyAPI;
     private ArrayList<SongFormat> playlist = new ArrayList<>();
+
+    private float currentSpeed;
 
 
     public HomeFragment() throws JSONException, IOException {
@@ -111,7 +115,10 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             playlistAdapter = new PlaylistAdapter(playlist, song -> openSpotifyLink(song.getSpotifyLink()));
             playlistRecyclerView.setAdapter(playlistAdapter);
             Button speedButton = view.findViewById(R.id.speed_button);
-            speedButton.setOnClickListener(v -> fetchSongsByEnergy());
+            speedButton.setOnClickListener(v -> {
+                Log.d("HomeFragment", "Speed button clicked");
+                fetchSongsByEnergy(currentSpeed);
+            });
 
             try {
                 spotifyAPI = new SpotifyAPI();
@@ -164,6 +171,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
 
     @Override
     public void onAccelerometerChanged(float velocity) {
+        currentSpeed = velocity;
         speedButton.setText(String.format("Velocity: %.2f m/s", velocity));
     }
 
@@ -257,11 +265,35 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
         }
     }
 
-    private void fetchSongsByEnergy() {
+    private void fetchSongsByEnergy(float speedData) {
         new Thread(() -> {
             try {
                 playlist.clear();
-                playlist.addAll(spotifyAPI.getSongsByEnergy("pop", 0, 80, 10));
+                Random random = new Random();
+                String randomGenre = Genre.getRandomGenre(random);
+
+                int minEnergy = 0;
+                int maxEnergy = 0;
+
+                if (speedData >= 0 && speedData < 1) {
+                    maxEnergy = 40;
+                } else if (speedData >= 1 && speedData < 4) {
+                    minEnergy = 40;
+                    maxEnergy = 100;
+                } else if (speedData >= 4 && speedData < 10) {
+                    minEnergy = 100;
+                    maxEnergy = 120;
+                } else if (speedData >= 10 && speedData < 20) {
+                    minEnergy = 120;
+                    maxEnergy = 140;
+                }
+
+
+                if(spotifyAPI != null) {
+                    playlist.addAll(spotifyAPI.getSongsByEnergy(randomGenre, minEnergy, maxEnergy, 10));
+                } else {
+                    Log.e("HomeFragment", "SpotifyAPI instance is null");
+                }
                 getActivity().runOnUiThread(() -> playlistAdapter.notifyDataSetChanged());
             } catch (Exception e) {
                 e.printStackTrace();
