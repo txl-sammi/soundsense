@@ -1,3 +1,15 @@
+import org.gradle.api.Project
+import java.util.Properties
+
+fun Project.loadLocalProperties(): Properties {
+    val properties = Properties()
+    val localPropertiesFile = file("../local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { properties.load(it) }
+    }
+    return properties
+}
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -6,8 +18,11 @@ plugins {
 android {
     namespace = "com.example.soundsenseapp"
     compileSdk = 34
+    val localProperties = loadLocalProperties()
+    val apiKey = localProperties.getProperty("CHATGPT_API_KEY") ?: ""
 
     defaultConfig {
+        buildConfigField("String", "CHATGPT_API_KEY", "\"$apiKey\"")
         applicationId = "com.example.soundsenseapp"
         minSdk = 33
         targetSdk = 34
@@ -31,6 +46,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
