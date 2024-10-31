@@ -12,8 +12,4 @@
         android:id="@+id/navigation_musicGPT"
         android:title="@string/music_gpt"
         android:icon="@drawable/search_nav" />
-    <item
-        android:id="@+id/navigation_user"
-        android:title="@string/user"
-        android:icon="@drawable/profile_nav" />
 </menu>

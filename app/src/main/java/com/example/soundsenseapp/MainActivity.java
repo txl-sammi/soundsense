@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new PlaylistFragment();
             } else if (item.getItemId() == R.id.navigation_musicGPT) {
                 selectedFragment = new MusicBotFragment();
-            } else if (item.getItemId() == R.id.navigation_user) {
-                selectedFragment = new UserFragment();
             }
 
             if (selectedFragment != null) {
