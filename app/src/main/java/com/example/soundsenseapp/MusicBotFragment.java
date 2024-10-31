@@ -117,7 +117,8 @@ public class MusicBotFragment extends Fragment {
             public java.util.Map<String, String> getHeaders() {
                 java.util.HashMap<String, String> headers = new java.util.HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer ");
+                String apiKey = BuildConfig.CHATGPT_API_KEY;
+                headers.put("Authorization", "Bearer " + apiKey);
                 return headers;
             }
         };
