@@ -36,9 +36,7 @@ public class AllPlaylistsAdapter extends RecyclerView.Adapter<AllPlaylistsAdapte
         holder.playlistNameTextView.setText(playlist.getName());
         holder.creationDateTextView.setText(playlist.getCreationDate());
 
-        // 设置按钮的点击事件
         holder.viewSongsButton.setOnClickListener(v -> {
-            // 启动新Activity，传递播放列表ID
             Intent intent = new Intent(context, SongsActivity.class);
             intent.putExtra("PLAYLIST_ID", playlist.getId());
             context.startActivity(intent);
@@ -53,13 +51,13 @@ public class AllPlaylistsAdapter extends RecyclerView.Adapter<AllPlaylistsAdapte
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView playlistNameTextView;
         TextView creationDateTextView;
-        Button viewSongsButton; // 新增的按钮
+        Button viewSongsButton;
 
         ViewHolder(View itemView) {
             super(itemView);
             playlistNameTextView = itemView.findViewById(R.id.playlist_name);
             creationDateTextView = itemView.findViewById(R.id.creation_date);
-            viewSongsButton = itemView.findViewById(R.id.view_songs_button); // 绑定按钮
+            viewSongsButton = itemView.findViewById(R.id.view_songs_button);
         }
     }
 }
