@@ -39,6 +39,11 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.SongVi
         holder.bind(song, onSongClickListener);
     }
 
+    public void setSongs(ArrayList<SongFormat> songs) {
+        this.songList = songs;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return songList.size();
