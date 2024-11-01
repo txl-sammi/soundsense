@@ -1,0 +1,22 @@
+################################################################################                     
+                    COMP90018 Programming Project Submission
+################################################################################
+
+Group No: #T05-G02
+
+Group Members:
+
+1: [Name: Donghao Yang, GitHub Username: ElonQuasimodoYoung, Email: donghao1@student.unimelb.edu.au]
+2: [Name: Jennifer Duong, GitHub Username: jenniferduon, Email: quangcattuong.duong@student.unimelb.edu.au]
+3: [Name: Sai Charan, GitHub Username: SaiCharan99, Email: venkatasaicharannaidu.kuppa@student.unimelb.edu.au]
+4: [Name: Soyeon Park, GitHub Username: Soyeon1213, Email: soyeon.park@student.unimelb.edu.au]
+5: [Name: Sammi Li, GitHub Username: txl-sammi, Email: tingxin.li@student.unimelb.edu.au
+]
+
+YouTube Link:
+
+Publicity statement: We authorise the University of Melbourne to use material from our submission for publicity.
+
+README:
+
+Please include details on how to compile and run your APP.
