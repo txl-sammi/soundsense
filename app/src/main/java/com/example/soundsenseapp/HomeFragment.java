@@ -28,6 +28,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.soundsenseapp.Spotify.DatabaseHelper;
+import com.example.soundsenseapp.Spotify.Playlist;
 import com.example.soundsenseapp.Spotify.SongFormat;
 import com.example.soundsenseapp.Spotify.SpotifyAPI;
 import com.example.soundsenseapp.data.sensorData.Accelerometer;
@@ -116,10 +117,23 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
             temperatureButton.setOnClickListener(v -> Toast.makeText(requireActivity(), "Temperature sensor is active", Toast.LENGTH_SHORT).show());
             moodButton.setOnClickListener(v -> getMood());
             saveButton.setOnClickListener(v -> {
-                if (playlist != null && !playlist.isEmpty() && playlistNameTextView.getText() != null) {
+                String playlistName = playlistNameTextView.getText().toString();
+                if (playlist != null && !playlist.isEmpty() && !playlistName.isEmpty()) {
                     DatabaseHelper dbHelper = DatabaseHelper.getInstance(getContext());
-                    DatabaseHelper.savePlaylist(dbHelper, (String) playlistNameTextView.getText(), playlist);
-                    Toast.makeText(requireActivity(), "Playlist saved successfully", Toast.LENGTH_SHORT).show();
+                    ArrayList<Playlist> allPlaylists = DatabaseHelper.getAllPlaylists(dbHelper);
+                    boolean playlistExists = false;
+                    for (Playlist existingPlaylist : allPlaylists) {
+                        if (existingPlaylist.getName().equals(playlistName)) {
+                            playlistExists = true;
+                            break;
+                        }
+                    }
+                    if (playlistExists) {
+                        Toast.makeText(requireActivity(), "Playlist already exists", Toast.LENGTH_SHORT).show();
+                    } else {
+                        DatabaseHelper.savePlaylist(dbHelper, playlistName, playlist);
+                        Toast.makeText(requireActivity(), "Playlist saved successfully", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(requireActivity(), "No available playlist", Toast.LENGTH_SHORT).show();
                 }
