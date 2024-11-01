@@ -374,7 +374,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
 
 
                 if(spotifyAPI != null) {
-                    playlist.addAll(spotifyAPI.getSongsByEnergy(randomGenre, minEnergy, maxEnergy, 10));
+                    playlist.addAll(spotifyAPI.getSongsByEnergy(randomGenre, minEnergy, maxEnergy, 15));
                     generatePlaylistName(playlist);
                 } else {
                     Log.e("HomeFragment", "SpotifyAPI instance is null");
@@ -398,7 +398,7 @@ public class HomeFragment extends Fragment implements Temperature.TemperatureLis
 
 
                 if(spotifyAPI != null) {
-                    playlist.addAll(spotifyAPI.getSongsByTempo(randomGenre, minTempo, maxTempo, 10));
+                    playlist.addAll(spotifyAPI.getSongsByTempo(randomGenre, minTempo, maxTempo, 15));
                     generatePlaylistName(playlist);
                 } else {
                     Log.e("HomeFragment", "SpotifyAPI instance is null");
